@@ -55,7 +55,7 @@ const MixDesignForm = ({ setResultData, setFormDataSend }) => {
 
         try {
             const res = await axios.post(
-                'http://localhost:8080/api/mix/calculate',
+                `${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/mix/calculate`,
                 formData,
                 {
                     headers: {

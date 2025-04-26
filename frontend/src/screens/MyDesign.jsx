@@ -16,7 +16,7 @@ const MyDesigns = () => {
             }
 
             try {
-                const res = await axios.get('http://localhost:8080/api/mix-design/my-designs', {
+                const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/mix-design/my-designs`, {
                     headers: {
                         Authorization: `Bearer ${authData.token}`
                     }

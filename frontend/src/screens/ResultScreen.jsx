@@ -32,7 +32,7 @@ const MixDesignResult = ({ formDataSend, result }) => {
 
             console.log("Saving mix design with data:", formDataSend, result);
 
-            await axios.post('http://localhost:8080/api/mix-design/save',
+            await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/mix-design/save`,
                 {
                     inputData: formDataSend,    // We'll discuss this below
                     resultData: result
