@@ -31,4 +31,30 @@ const getMyMixDesigns = async (req, res) => {
     }
 };
 
-export  { saveMixDesign, getMyMixDesigns };
+const deleteMixDesign = async (req, res) => {
+    try {
+        const designId = req.params.id;
+        const userId = req.user.id;
+
+        const design = await MixDesign.findById(designId);
+
+        if (!design) {
+            return res.status(404).json({ success: false, message: "Mix Design not found" });
+        }
+
+        if (design.user.toString() !== userId) {
+            return res.status(403).json({ success: false, message: "Unauthorized to delete this design" });
+        }
+
+        await MixDesign.findByIdAndDelete(designId);
+
+        res.status(200).json({ success: true, message: "Mix Design deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting mix design:", error);
+        res.status(500).json({ success: false, message: "Error deleting mix design" });
+    }
+};
+
+
+
+export  { saveMixDesign, getMyMixDesigns , deleteMixDesign };

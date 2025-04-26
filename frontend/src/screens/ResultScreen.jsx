@@ -13,7 +13,7 @@ const MixDesignResult = ({ formDataSend, result }) => {
         return <div className="text-center mt-20">
             <h2 className="text-2xl font-bold text-red-600">No Result Found</h2>
             <button
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/dashboard')}
                 className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg"
             >
                 Start New Mix Design

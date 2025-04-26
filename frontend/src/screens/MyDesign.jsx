@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const MyDesigns = () => {
     const [mixDesigns, setMixDesigns] = useState([]);
@@ -32,6 +33,31 @@ const MyDesigns = () => {
 
         fetchDesigns();
     }, [navigate]);
+
+    const handleDelete = async (id) => {
+        console.log(id)
+        const confirmDelete = window.confirm("Are you sure you want to delete this Mix Design?");
+        if (!confirmDelete) return;
+
+        try {
+            const authData = JSON.parse(localStorage.getItem('authToken'));
+
+            await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/mix-design/delete/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${authData.token}`
+                }
+            });
+
+            // Remove deleted design from UI
+            setMixDesigns((prev) => prev.filter((design) => design._id !== id));
+
+            toast.success("Mix Design Deleted Successfully!");
+        } catch (error) {
+            console.error("Error deleting mix design:", error);
+            toast.error("Failed to delete mix design");
+        }
+    };
+
     return (
         <div className="max-w-6xl mx-auto py-10 px-4">
             <h1 className="text-3xl font-bold text-center mb-8">My Saved Mix Designs</h1>
@@ -79,8 +105,17 @@ const MyDesigns = () => {
                                 <p><strong>Admixture Weight:</strong> {design.resultData.admixtureWeight || "NA"} kg</p>
                                 <p><strong>Mix Ratio:</strong> 1 : {design.resultData.mixRatio.fineAggregate || "NA"} : {design.resultData.mixRatio.coarseAggregate || "NA"}</p>
                             </div>
+                            <button
+                                onClick={() => handleDelete(design._id)}
+                                className="mt-2 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
+                            >
+                                Delete Design
+                            </button>
+
                         </div>
                     ))}
+
+                
                 </div>
             )}
         </div>
