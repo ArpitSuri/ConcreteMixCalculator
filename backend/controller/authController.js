@@ -109,7 +109,6 @@ const googleLogin = async (req, res) => {
     }
 };
 
-export default googleLogin;
 
 
 export  { googleLogin };

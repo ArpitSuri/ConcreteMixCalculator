@@ -9,20 +9,26 @@ const GoogleLogin = () => {
 
     const responseGoogle = async (authResult) => {
         try {
-            if (authResult["code"]) {
-                const result = await googleAuth(authResult["code"]);
-                const { email, name, role } = result.data.user;
-                const token = result.data.token;
-                const obj = { email, name, role, token };
-                localStorage.setItem("authToken", JSON.stringify(obj));
-                toast.success("Logged in successfully!");
+            if (authResult.code) {
+                // Before calling backend: clear any old login
+                localStorage.removeItem("authToken");
+
+                const res = await googleAuth(authResult.code);
+                const { token, user } = res.data;
+                const { email, name, role, picture } = user;
+
+                const userData = { email, name, role, picture, token };
+                localStorage.setItem("authToken", JSON.stringify(userData));
+
+                toast.success(`Welcome, ${name}!`);
                 navigate("/dashboard");
             }
         } catch (error) {
-            console.error(`Error while requesting Google code:`, error);
+            console.error("Error during Google login:", error);
             toast.error("Login failed. Please try again.");
         }
     };
+
 
     const googleLogin = useGoogleLogin({
         onSuccess: responseGoogle,
