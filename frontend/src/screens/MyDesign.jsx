@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const MyDesigns = () => {
     const [mixDesigns, setMixDesigns] = useState([]);
@@ -33,6 +35,20 @@ const MyDesigns = () => {
 
         fetchDesigns();
     }, [navigate]);
+
+
+    const handleDownloadPdf = async () => {
+        const element = pdfRef.current;
+        const canvas = await html2canvas(element);
+        const data = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('Concrete_Mix_Design.pdf');
+    };
 
     const handleDelete = async (id) => {
         console.log(id)
@@ -112,12 +128,20 @@ const MyDesigns = () => {
                                         <p><strong>Mix Ratio:</strong> 1 : {design.resultData.mixRatio.fineAggregate || "NA"} : {design.resultData.mixRatio.coarseAggregate || "NA"}</p>
                                     </div>
                                 </div>
+                                {/* Download PDF Button */}
+                                <button
+                                    onClick={handleDownloadPdf}
+                                    className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg"
+                                >
+                                    Download as PDF
+                                </button>
                                 <button
                                     onClick={() => handleDelete(design._id)}
                                     className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-medium transition duration-300 shadow-sm"
                                 >
                                     Delete Design
                                 </button>
+                                
                             </div>
                         ))}
                     </div>
