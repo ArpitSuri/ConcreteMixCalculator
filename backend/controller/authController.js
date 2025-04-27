@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import axios from "axios";
 import dotenv from "dotenv"
 
+
 dotenv.config();
 
 // const googleLogin = async (req, res) => {
@@ -51,9 +52,6 @@ dotenv.config();
 // };
 
 
-import axios from 'axios';
-import jwt from 'jsonwebtoken';
-import User from './models/User'; // Adjust the path as needed
 
 const googleLogin = async (req, res) => {
     try {
