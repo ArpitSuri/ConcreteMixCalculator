@@ -30,12 +30,14 @@ const GoogleLogin = () => {
     });
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="bg-white p-10 rounded-xl shadow-lg text-center space-y-6">
-                <h1 className="text-2xl font-bold text-gray-700">Login to Your Account</h1>
+        <div className="flex justify-center items-center min-h-screen bg-amber-50">
+            <div className="bg-white p-10 rounded-xl shadow-md border border-amber-100 text-center space-y-8 w-full max-w-md">
+                <h1 className="text-3xl font-bold text-amber-800">Welcome Back</h1>
+                <p className="text-amber-600 mb-6">Login to access your mix designs</p>
+
                 <button
                     onClick={googleLogin}
-                    className="flex items-center justify-center gap-4 px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition duration-300"
+                    className="flex items-center justify-center gap-4 px-6 py-4 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg transition duration-300 shadow-sm w-full"
                 >
                     <svg
                         className="w-6 h-6"
@@ -47,7 +49,14 @@ const GoogleLogin = () => {
                     </svg>
                     Continue with Google
                 </button>
-                <p className="text-gray-400 text-sm">Safe, Secure and Fast Login</p>
+
+                <div className="pt-4 border-t border-amber-100">
+                    <p className="text-amber-500 text-sm">Safe, Secure and Fast Login</p>
+                </div>
+
+                <div className="mt-8 text-sm text-amber-600">
+                    <p>Powered by IS 10262:2019 Concrete Mix Design</p>
+                </div>
             </div>
         </div>
     );

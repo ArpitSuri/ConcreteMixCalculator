@@ -16,24 +16,24 @@ export const calculateMixDesignFinal = (input) => {
 
     // Lookup Tables
     const xFactorTable = {
-        M20: 7,
-        M25: 6,
-        M30: 5,
-        M35: 5,
-        M40: 5,
-        M45: 5,
-        M50: 5,
-        M55: 5,
-        M60: 5
+        M20: 5.5,
+        M25: 5.5,
+        M30: 6.5,
+        M35: 6.5,
+        M40: 6.5,
+        M45: 6.5,
+        M50: 6.5,
+        M55: 6.5,
+        M60: 6.5
     };
 
-    const airContentTable = { 10: 1.5, 20: 2.0, 40: 2.5 };
+    const airContentTable = { 10: 1.5, 20: 1.0, 40: 0.8 };
     const baseWaterContentTable = { 10: 208, 20: 186, 40: 165 };
     const coarseAggregateVolumeTable = {
-        "Zone I": { 10: 0.44, 20: 0.60, 40: 0.69 },
-        "Zone II": { 10: 0.46, 20: 0.62, 40: 0.71 },
-        "Zone III": { 10: 0.48, 20: 0.64, 40: 0.73 },
-        "Zone IV": { 10: 0.50, 20: 0.66, 40: 0.75 }
+        "Zone I": { 10: 0.48, 20: 0.60, 40: 0.69 },
+        "Zone II": { 10: 0.50, 20: 0.62, 40: 0.71 },
+        "Zone III": { 10: 0.52, 20: 0.64, 40: 0.72 },
+        "Zone IV": { 10: 0.54, 20: 0.66, 40: 0.73 }
     };
     const exposureLimits = {
         mild: { minCement: 300, maxWCR: 0.55 },

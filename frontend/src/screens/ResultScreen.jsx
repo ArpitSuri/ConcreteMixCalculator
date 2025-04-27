@@ -8,17 +8,20 @@ const MixDesignResult = ({ formDataSend, result }) => {
     const navigate = useNavigate();
     const [isSaved, setIsSaved] = useState(false);
 
-
     if (!result) {
-        return <div className="text-center mt-20">
-            <h2 className="text-2xl font-bold text-red-600">No Result Found</h2>
-            <button
-                onClick={() => navigate('/dashboard')}
-                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg"
-            >
-                Start New Mix Design
-            </button>
-        </div>;
+        return (
+            <div className="min-h-screen bg-amber-50 flex items-center justify-center p-4">
+                <div className="bg-white p-8 rounded-xl shadow-md border border-amber-100 text-center max-w-md w-full">
+                    <h2 className="text-2xl font-bold text-red-600 mb-6">No Result Found</h2>
+                    <button
+                        onClick={() => navigate('/dashboard')}
+                        className="bg-amber-600 hover:bg-amber-700 text-white py-3 px-6 rounded-lg font-medium transition duration-300 shadow-sm"
+                    >
+                        Start New Mix Design
+                    </button>
+                </div>
+            </div>
+        );
     }
 
     const handleSaveMixDesign = async () => {
@@ -34,7 +37,7 @@ const MixDesignResult = ({ formDataSend, result }) => {
 
             await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/mix-design/save`,
                 {
-                    inputData: formDataSend,    // We'll discuss this below
+                    inputData: formDataSend,
                     resultData: result
                 },
                 {
@@ -63,65 +66,88 @@ const MixDesignResult = ({ formDataSend, result }) => {
         mixRatio
     } = result;
 
-
     return (
-        <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-xl rounded-xl flex items-center justify-center flex-col ">
+        <div className="min-h-screen bg-amber-50 flex items-center justify-center p-4">
+            <div className="max-w-2xl w-full mx-auto p-8 bg-white shadow-md rounded-xl border border-amber-100">
+                <h2 className="text-2xl font-bold text-center text-amber-800 mb-8 pb-2 border-b border-amber-100">
+                    Concrete Mix Design Results
+                </h2>
 
-            <h2 className="text-2xl font-bold text-center text-green-700 mb-6">
-                Concrete Mix Design Results
-            </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div className="bg-amber-50 p-6 rounded-lg border border-amber-100">
+                        <div className="text-center mb-4">
+                            <span className="inline-block p-2 bg-amber-100 rounded-full mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </span>
+                            <h3 className="font-semibold text-amber-800">Target Strength</h3>
+                        </div>
+                        <p className="text-2xl font-bold text-center text-amber-700">{targetStrength} MPa</p>
+                    </div>
 
-            <div className="space-y-4 text-gray-700 text-lg">
-
-                <div>
-                    <strong>🎯 Target Mean Strength:</strong> {targetStrength} MPa
+                    <div className="bg-amber-50 p-6 rounded-lg border border-amber-100">
+                        <div className="text-center mb-4">
+                            <span className="inline-block p-2 bg-amber-100 rounded-full mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                </svg>
+                            </span>
+                            <h3 className="font-semibold text-amber-800">Cement Required</h3>
+                        </div>
+                        <p className="text-2xl font-bold text-center text-amber-700">{cementContent} kg</p>
+                        <p className="text-center text-amber-600">({cementBags} bags of 50 kg)</p>
+                    </div>
                 </div>
 
-                <div>
-                    <strong>🏗 Cement Required:</strong> {cementContent} kg ({cementBags} bags of 50 kg)
+                <div className="bg-amber-50 p-6 rounded-lg border border-amber-100 mb-8">
+                    <h3 className="font-semibold text-amber-800 mb-4 pb-2 border-b border-amber-100">Material Requirements</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-amber-700">
+                        <div>
+                            <strong>💧 Water Required:</strong> {waterContent} liters
+                        </div>
+                        <div>
+                            <strong>🪨 Fine Aggregate:</strong> {fineAggregateMass} kg
+                        </div>
+                        <div>
+                            <strong>🪨 Coarse Aggregate:</strong> {coarseAggregateMass} kg
+                        </div>
+                        <div>
+                            <strong>🧪 Admixture:</strong> {admixtureWeight} kg
+                        </div>
+                    </div>
                 </div>
 
-                <div>
-                    <strong>💧 Water Required:</strong> {waterContent} liters
+                <div className="bg-amber-50 p-6 rounded-lg border border-amber-100 mb-8 text-center">
+                    <h3 className="font-semibold text-amber-800 mb-2">Final Mix Ratio</h3>
+                    <p className="text-2xl font-bold text-amber-700">{`1 : ${mixRatio.fineAggregate} : ${mixRatio.coarseAggregate}`}</p>
                 </div>
 
-                <div>
-                    <strong>🪨 Fine Aggregate Required:</strong> {fineAggregateMass} kg
-                </div>
+                <div className="text-center space-y-4">
+                    {!isSaved && (
+                        <button
+                            onClick={handleSaveMixDesign}
+                            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 shadow-sm"
+                        >
+                            Save This Mix Design
+                        </button>
+                    )}
+                    {isSaved && (
+                        <div className="text-green-600 font-semibold py-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline-block mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            Saved Successfully! 🎯
+                        </div>
+                    )}
 
-                <div>
-                    <strong>🪨 Coarse Aggregate Required:</strong> {coarseAggregateMass} kg
-                </div>
-
-                <div>
-                    <strong>🧪 Admixture:</strong> {admixtureWeight} kg
-                </div>
-
-                <div>
-                    <strong>🧮 Final Mix Ratio:</strong> {`1 : ${mixRatio.fineAggregate} : ${mixRatio.coarseAggregate}`}
-                </div>
-
-            </div>
-            {/* Save Mix Design Button */}
-            <div className="text-center mt-8 space-y-4">
-                {!isSaved && (
                     <button
-                        onClick={handleSaveMixDesign}
-                        className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg"
+                        onClick={() => navigate('/dashboard')}
+                        className="mt-4 bg-amber-600 hover:bg-amber-700 text-white py-3 px-8 rounded-lg font-medium transition duration-300 shadow-sm"
                     >
-                        Save This Mix Design
+                        Start New Mix Design
                     </button>
-                )}
-                {isSaved && (
-                    <div className="text-green-600 font-semibold">Saved Successfully! 🎯</div>
-                )}
-            
-            <button
-                onClick={() => navigate('/dashboard')}
-                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg"
-            >
-                Start New Mix Design
-            </button>
+                </div>
             </div>
         </div>
     );

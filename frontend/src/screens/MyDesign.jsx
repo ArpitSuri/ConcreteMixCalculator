@@ -59,68 +59,72 @@ const MyDesigns = () => {
     };
 
     return (
-        <div className="max-w-6xl mx-auto py-10 px-4">
-            <h1 className="text-3xl font-bold text-center mb-8">My Saved Mix Designs</h1>
-            <button
-                onClick={() => navigate('/dashboard')}
-                className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg"
-            >
-                Start New Mix Design
-            </button>
+        <div className="min-h-screen bg-amber-50 py-10 px-4">
+            <div className="max-w-6xl mx-auto bg-white shadow-md rounded-xl p-8 border border-amber-100">
+                <h1 className="text-3xl font-bold text-center mb-8 text-amber-800">My Saved Mix Designs</h1>
+                <button
+                    onClick={() => navigate('/dashboard')}
+                    className="mt-4 bg-amber-600 hover:bg-amber-700 text-white py-2 px-6 rounded-lg font-medium transition duration-300 shadow-sm"
+                >
+                    Start New Mix Design
+                </button>
 
-            {mixDesigns.length === 0 ? (
-                <p className="text-center text-gray-500">No mix designs found. Start a new one!</p>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {mixDesigns.map((design) => (
-                        <div key={design._id} className="p-6 bg-white shadow-md rounded-xl space-y-4">
-                            <h2 className="text-xl font-bold text-gray-700">{design.resultData.grade} Mix Design</h2>
-                            <p className="text-gray-600"><strong>Date:</strong> {new Date(design.createdAt).toLocaleDateString()}</p>
+                {mixDesigns.length === 0 ? (
+                    <div className="text-center mt-16 mb-16 py-12 bg-amber-50 rounded-lg border border-amber-100">
+                        <p className="text-amber-700 text-lg">No mix designs found. Start a new one!</p>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        {mixDesigns.map((design) => (
+                            <div key={design._id} className="p-6 bg-amber-50 shadow-sm rounded-xl border border-amber-100 hover:shadow-md transition duration-300">
+                                <h2 className="text-xl font-bold text-amber-800 border-b border-amber-200 pb-2 mb-4">{design.resultData.grade} Mix Design</h2>
+                                <p className="text-amber-700 mb-4"><strong>Date:</strong> {new Date(design.createdAt).toLocaleDateString()}</p>
 
-                            {/* Display Input Data */}
-                            <div>
-                                <h3 className="text-lg font-semibold text-gray-700">Input Data</h3>
-                                <p><strong>Exposure:</strong> {design.inputData?.exposure || "NA"}</p>
-                                <p><strong>Max Agg Size:</strong> {design.inputData?.maxAggSize || "NA"} mm</p>
-                                <p><strong>Slump:</strong> {design.inputData?.slump || "NA"} mm</p>
-                                <p><strong>Aggregate Shape:</strong> {design.inputData?.aggregateShape || "NA"}</p>
-                                <p><strong>Water-Cement Ratio:</strong> {design.inputData?.wcrInput || "NA"}</p>
-                                <p><strong>Zone:</strong> {design.inputData?.zone || "NA"}</p>
-                                <p><strong>Specific Gravity of Cement:</strong> {design.inputData?.specificGravityCement || "NA"}</p>
-                                <p><strong>Specific Gravity of FA:</strong> {design.inputData?.specificGravityFA || "NA"}</p>
-                                <p><strong>Specific Gravity of CA:</strong> {design.inputData?.specificGravityCA || "NA"}</p>
-                                <p><strong>Admixture Percent:</strong> {design.inputData?.admixturePercent || "NA"} %</p>
-                                <p><strong>Volume:</strong> {design.inputData?.volume || "NA"} m³</p>
+                                {/* Display Input Data */}
+                                <div className="mb-4">
+                                    <h3 className="text-lg font-semibold text-amber-700 border-b border-amber-100 pb-1 mb-2">Input Data</h3>
+                                    <div className="grid grid-cols-2 gap-2 text-amber-700">
+                                        <p><strong>Exposure:</strong> {design.inputData?.exposure || "NA"}</p>
+                                        <p><strong>Max Agg Size:</strong> {design.inputData?.maxAggSize || "NA"} mm</p>
+                                        <p><strong>Slump:</strong> {design.inputData?.slump || "NA"} mm</p>
+                                        <p><strong>Aggregate Shape:</strong> {design.inputData?.aggregateShape || "NA"}</p>
+                                        <p><strong>Water-Cement Ratio:</strong> {design.inputData?.wcrInput || "NA"}</p>
+                                        <p><strong>Zone:</strong> {design.inputData?.zone || "NA"}</p>
+                                        <p><strong>SG of Cement:</strong> {design.inputData?.specificGravityCement || "NA"}</p>
+                                        <p><strong>SG of FA:</strong> {design.inputData?.specificGravityFA || "NA"}</p>
+                                        <p><strong>SG of CA:</strong> {design.inputData?.specificGravityCA || "NA"}</p>
+                                        <p><strong>Admixture %:</strong> {design.inputData?.admixturePercent || "NA"} %</p>
+                                        <p><strong>Volume:</strong> {design.inputData?.volume || "NA"} m³</p>
+                                    </div>
+                                </div>
+
+                                {/* Display Result Data */}
+                                <div className="bg-white p-4 rounded-lg border border-amber-100">
+                                    <h3 className="text-lg font-semibold text-amber-700 border-b border-amber-100 pb-1 mb-2">Result Data</h3>
+                                    <div className="grid grid-cols-2 gap-2 text-amber-700">
+                                        <p><strong>Target Strength:</strong> {design.resultData.targetStrength || "NA"} MPa</p>
+                                        <p><strong>Cement Content:</strong> {design.resultData.cementContent || "NA"} kg</p>
+                                        <p><strong>Cement Bags:</strong> {design.resultData.cementBags || "NA"} bags</p>
+                                        <p><strong>Water Content:</strong> {design.resultData.waterContent || "NA"} liters</p>
+                                        <p><strong>Fine Aggregate:</strong> {design.resultData.fineAggregateMass || "NA"} kg</p>
+                                        <p><strong>Coarse Aggregate:</strong> {design.resultData.coarseAggregateMass || "NA"} kg</p>
+                                        <p><strong>Admixture Weight:</strong> {design.resultData.admixtureWeight || "NA"} kg</p>
+                                        <p><strong>Mix Ratio:</strong> 1 : {design.resultData.mixRatio.fineAggregate || "NA"} : {design.resultData.mixRatio.coarseAggregate || "NA"}</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => handleDelete(design._id)}
+                                    className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg font-medium transition duration-300 shadow-sm"
+                                >
+                                    Delete Design
+                                </button>
                             </div>
-
-                            {/* Display Result Data */}
-                            <div>
-                                <h3 className="text-lg font-semibold text-gray-700">Result Data</h3>
-                                <p><strong>Target Strength:</strong> {design.resultData.targetStrength || "NA"} MPa</p>
-                                <p><strong>Cement Content:</strong> {design.resultData.cementContent || "NA"} kg</p>
-                                <p><strong>Cement Bags:</strong> {design.resultData.cementBags || "NA"} bags</p>
-                                <p><strong>Water Content:</strong> {design.resultData.waterContent || "NA"} liters</p>
-                                <p><strong>Fine Aggregate Mass:</strong> {design.resultData.fineAggregateMass || "NA"} kg</p>
-                                <p><strong>Coarse Aggregate Mass:</strong> {design.resultData.coarseAggregateMass || "NA"} kg</p>
-                                <p><strong>Admixture Weight:</strong> {design.resultData.admixtureWeight || "NA"} kg</p>
-                                <p><strong>Mix Ratio:</strong> 1 : {design.resultData.mixRatio.fineAggregate || "NA"} : {design.resultData.mixRatio.coarseAggregate || "NA"}</p>
-                            </div>
-                            <button
-                                onClick={() => handleDelete(design._id)}
-                                className="mt-2 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
-                            >
-                                Delete Design
-                            </button>
-
-                        </div>
-                    ))}
-
-                
-                </div>
-            )}
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
-
 };
 
 export default MyDesigns;
