@@ -20,6 +20,7 @@ const GoogleLogin = () => {
             }
         } catch (error) {
             console.error(`Error while requesting Google code:`, error);
+            toast.error("Login failed. Please try again.");
         }
     };
 
