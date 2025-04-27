@@ -35,12 +35,9 @@ const Dashboard = () => {
                     <>
                         <div className="mb-8">
                             <div className="inline-block p-4 bg-amber-100 rounded-full mb-4">
-                                {/* Display user's Google profile image */}
-                                <img
-                                    src={user.picture}
-                                    alt="User Profile"
-                                    className="h-12 w-12 rounded-full object-cover"
-                                />
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
                             </div>
                             <h1 className="text-3xl font-bold text-amber-800">
                                 Welcome, {user.name}! 🎉
